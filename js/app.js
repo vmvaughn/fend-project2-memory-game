@@ -13,7 +13,8 @@ const cardList = document.getElementsByClassName('card');
  */
  const cardArray = shuffle(Array.from(cardList));
     cardArray.forEach(function getInnerHtml(cardData, i) {
- 	cardList[i].innerHTML = cardData.innerHTML;
+    cardList[i].className = "card";
+    cardList[i].innerHTML = cardData.innerHTML;
  	console.log(i, cardList[i]);
  	}); 
 
