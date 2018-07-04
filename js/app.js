@@ -2,7 +2,7 @@
  * Create a list that holds all of your cards
  */
 const cardList = document.getElementsByClassName('card');
-console.log(cardList);
+//console.log(cardList);
 
 
 /*
@@ -11,6 +11,12 @@ console.log(cardList);
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+ const cardArray = shuffle(Array.from(cardList));
+    cardArray.forEach(function getInnerHtml(cardData, i) {
+ 	cardList[i].innerHTML = cardData.innerHTML;
+ 	console.log(i, cardList[i]);
+ 	}); 
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
