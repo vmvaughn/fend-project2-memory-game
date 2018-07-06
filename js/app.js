@@ -13,7 +13,6 @@ function shuffle(array) {
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
-//        console.log("randomIndex = " + randomIndex + array[randomIndex].innerHTML, "currentIndex = " + currentIndex + array[currentIndex].innerHTML);
     }
 
     return array;
@@ -21,7 +20,7 @@ function shuffle(array) {
 
 /*
  * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - shuffle the list of cards using the provided "shuffle" method above
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  *
@@ -29,19 +28,20 @@ function shuffle(array) {
  *  ...and moving in the innerHTML in the shuffled array's index position to the same index position in cardList
  */
  function resetCards() {
-     //build current Nodelist of card class to shuffle.
-     const cardList = document.getElementsByClassName('card');
-     const cardArray = shuffle(Array.from(cardList));
+     const cardArray = shuffle(Array.from(document.getElementsByClassName('card')));
      cardArray.forEach(function(cardData, i) {
-       console.log('from cardData', i, cardData.innerHTML);
-       cardList[i].className = "card open show";
-      }); //end of anonymous function
-    } //end of resetCards 
+     cardArray[i].remove();
+     cardDeck.appendChild(cardArray[i]);
+     cardArray[i].className = 'card';
+      }); 
+    } 
 
 
 function displaySymbol(event) {
-    console.log('card clicked');
-    console.log(event.path[0].outerHTML);
+    if (event.target.nodeName == "LI") {
+      event.target.className = 'card open show';
+      console.log(event);
+    }
 }
 
  resetCards();
