@@ -1,10 +1,10 @@
 //Get the ul for the deck in order to set 1 event listener instead of 16
 const cardDeck = document.querySelector('.deck');
+const openList = [];
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    console.log("Entered shuffle function");
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -36,12 +36,16 @@ function shuffle(array) {
       }); 
     } 
 
+function addToOpenList(openCard) {
+    openList.push(openCard);
+    console.log(openList);
+}
 
 function displaySymbol(event) {
     if (event.target.nodeName == "LI") {
       event.target.className = 'card open show';
-      console.log(event);
     }
+    addToOpenList(event.target.firstElementChild);
 }
 
  resetCards();
