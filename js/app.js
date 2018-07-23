@@ -1,6 +1,10 @@
 //Get the ul for the deck in order to set 1 event listener instead of 16
 const cardDeck = document.querySelector('.deck');
+const numMoves = document.querySelector('.moves');
+const restartSymbol = document.querySelector('.restart');
 const openList = [];
+let countMoves = 0;
+let numMatches = 0;
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -27,7 +31,14 @@ function shuffle(array) {
  *  Note that shuffling the HTML is really setting the initial class to card only...
  *  ...and moving in the innerHTML in the shuffled array's index position to the same index position in cardList
  */
+ function resetCounters() {
+     numMoves.textContent = 0;
+     countMoves = 0;
+     numMatches = 0;
+ }
+
  function resetCards() {
+     resetCounters();
      const cardArray = shuffle(Array.from(document.getElementsByClassName('card')));
      cardArray.forEach(function(cardData, i) {
      cardArray[i].remove();
@@ -36,21 +47,49 @@ function shuffle(array) {
       }); 
     } 
 
+function handleOpenListMatch() {
+    numMatches++;
+    console.log("matches = " + numMatches);
+    for (let i = openList.length-1; i >= 0; i--) {
+        openList[i].className = 'card match';
+        openList.pop();
+    }
+}
+
+function handleOpenListMismatch() {
+    for (let i = openList.length-1; i >= 0; i--) {
+        openList[i].className = 'card';
+        openList.pop();
+    }
+}
+
+function incrementMoves() {
+  numMoves.textContent = ++countMoves;
+  console.log(numMoves.textContent);
+}
 function addToOpenList(openCard) {
     openList.push(openCard);
-    console.log(openList);
+    if (openList.length === 2) {
+      incrementMoves();
+      if (openList[0].firstElementChild.outerHTML == openList[1].firstElementChild.outerHTML) {
+         handleOpenListMatch();  
+      } else {
+        handleOpenListMismatch();
+        }
+    }
 }
 
 function displaySymbol(event) {
-    if (event.target.nodeName == "LI") {
+    if ((event.target.nodeName == "LI") && (event.target.className !== 'card match')) {
       event.target.className = 'card open show';
+      addToOpenList(event.target);
     }
-    addToOpenList(event.target.firstElementChild);
 }
 
  resetCards();
 
  cardDeck.addEventListener('click', displaySymbol);
+ restartSymbol.addEventListener('click', resetCards);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
