@@ -6,6 +6,9 @@ const scoreArray = Array.from(document.getElementsByClassName('fa-star'));
 const openList = [];
 let countMoves = 0;
 let numMatches = 0;
+let startTime = 0;
+let stopTime = 0; 
+let gameTime = 0;
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -23,15 +26,36 @@ function shuffle(array) {
     return array;
 }
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method above
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- *
- *  Note that shuffling the HTML is really setting the initial class to card only...
- *  ...and moving in the innerHTML in the shuffled array's index position to the same index position in cardList
- */
+/*timeConversion function from https://stackoverflow.com/questions/19700283, 
+  answered by nofi...profile at https://stackoverflow.com/users/5242405/nofi */
+function timeConversion(millisec) {
+
+        var seconds = (millisec / 1000).toFixed(1);
+
+        var minutes = (millisec / (1000 * 60)).toFixed(1);
+
+        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+
+        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+        if (seconds < 60) {
+            return seconds + " Sec";
+        } else if (minutes < 60) {
+            return minutes + " Min";
+        } else if (hours < 24) {
+            return hours + " Hrs";
+        } else {
+            return days + " Days"
+        }
+    }
+
+ function getGameTime () {
+  stopTime = performance.now();
+  gameDuration = stopTime - startTime;
+  var gameTime = timeConversion(gameDuration);
+  console.log(gameTime);
+ }
+
  function resetCounters() {
      numMoves.textContent = 0;
      countMoves = 0;
@@ -44,8 +68,6 @@ function resetScore() {
 }
 
  function resetCards() {
-     resetCounters();
-     resetScore();
      const cardArray = shuffle(Array.from(document.getElementsByClassName('card')));
      cardArray.forEach(function(cardData, i) {
      cardArray[i].remove();
@@ -74,6 +96,7 @@ function runningScore () {
     if (countMoves === 8) {
         console.log("countMoves = " + countMoves);
         scoreArray[0].classList.add('hide-star');
+        getGameTime();
     } 
     else if (countMoves ===11) {
         console.log("countMoves = " + countMoves);
@@ -106,10 +129,17 @@ function displaySymbol(event) {
     }
 }
 
- resetCards();
+function resetGame() {
+  resetCounters();
+  resetScore();
+  resetCards();
+  startTime = performance.now();
+}
+
+ resetGame();
 
  cardDeck.addEventListener('click', displaySymbol);
- restartSymbol.addEventListener('click', resetCards);
+ restartSymbol.addEventListener('click', resetGame);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

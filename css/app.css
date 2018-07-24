@@ -108,6 +108,11 @@ h1 {
     cursor: pointer;
 }
 
+.game-time {
+    float: right;
+    display: inline-block;
+}
+
 .hide-star {
     visibility: hidden;
 }
