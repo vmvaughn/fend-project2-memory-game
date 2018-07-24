@@ -2,6 +2,7 @@
 const cardDeck = document.querySelector('.deck');
 const numMoves = document.querySelector('.moves');
 const restartSymbol = document.querySelector('.restart');
+const scoreArray = Array.from(document.getElementsByClassName('fa-star'));
 const openList = [];
 let countMoves = 0;
 let numMatches = 0;
@@ -37,8 +38,14 @@ function shuffle(array) {
      numMatches = 0;
  }
 
+function resetScore() {
+    scoreArray[0].classList.remove('hide-star');
+    scoreArray[1].classList.remove('hide-star');
+}
+
  function resetCards() {
      resetCounters();
+     resetScore();
      const cardArray = shuffle(Array.from(document.getElementsByClassName('card')));
      cardArray.forEach(function(cardData, i) {
      cardArray[i].remove();
@@ -63,10 +70,23 @@ function handleOpenListMismatch() {
     }
 }
 
+function runningScore () {
+    if (countMoves === 8) {
+        console.log("countMoves = " + countMoves);
+        scoreArray[0].classList.add('hide-star');
+    } 
+    else if (countMoves ===11) {
+        console.log("countMoves = " + countMoves);
+        scoreArray[1].classList.add('hide-star');
+    }
+}
+
 function incrementMoves() {
   numMoves.textContent = ++countMoves;
   console.log(numMoves.textContent);
+  runningScore();
 }
+
 function addToOpenList(openCard) {
     openList.push(openCard);
     if (openList.length === 2) {
