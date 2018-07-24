@@ -108,9 +108,9 @@ h1 {
     cursor: pointer;
 }
 
-.game-time {
+.score-panel .game-time {
     float: right;
-    display: inline-block;
+    margin: 0 40px 0 0;
 }
 
 .hide-star {
