@@ -10,6 +10,7 @@ let countMoves = 0;
 let numMatches = 0;
 let totalSeconds = 0;
 let priorEvent = "";
+let intervalId = 0;
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -46,6 +47,14 @@ function pad(val) {
   }
 }
 
+function resetClock() {
+    clearInterval(intervalId);
+    totalSeconds = 0;
+    secondsLabel.innerHTML = pad(0);
+    minutesLabel.innerHTML = pad(0);
+    intervalId = setInterval(setTime, 1000);
+}
+
  function resetCounters() {
      numMoves.textContent = 0;
      countMoves = 0;
@@ -80,7 +89,7 @@ function handleOpenListMismatch() {
     for (let i = openList.length-1; i >= 0; i--) {
         openList[i].className = 'card';
         openList.pop();
-    }
+    } 
     console.log("openList.length = " + openList.length);
 }
 
@@ -118,6 +127,7 @@ function displaySymbol(event) {
   if ((priorEvent !== event.target) || (openList.length === 0)) {
     if ((event.target.nodeName == "LI") && (event.target.className !== 'card match')) {
       event.target.className = 'card open show';
+      console.log("displaySymbol: card open show");
       priorEvent = event.target;
       addToOpenList(event.target);
     }
@@ -128,7 +138,8 @@ function resetGame() {
   resetCounters();
   resetScore();
   resetCards();
-  setInterval(setTime, 1000);
+  resetClock();
+
 }
 
  resetGame();
