@@ -108,7 +108,7 @@ h1 {
     cursor: pointer;
 }
 
-.score-panel .game-time {
+.score-panel .game-timer {
     float: right;
     margin: 0 40px 0 0;
 }

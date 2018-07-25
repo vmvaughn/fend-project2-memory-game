@@ -3,12 +3,13 @@ const cardDeck = document.querySelector('.deck');
 const numMoves = document.querySelector('.moves');
 const restartSymbol = document.querySelector('.restart');
 const scoreArray = Array.from(document.getElementsByClassName('fa-star'));
+const minutesLabel = document.getElementById("minutes");
+const secondsLabel = document.getElementById("seconds");
 const openList = [];
 let countMoves = 0;
 let numMatches = 0;
-let startTime = 0;
-let stopTime = 0; 
-let gameTime = 0;
+let totalSeconds = 0;
+let priorEvent = "";
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -26,35 +27,24 @@ function shuffle(array) {
     return array;
 }
 
-/*timeConversion function from https://stackoverflow.com/questions/19700283, 
-  answered by nofi...profile at https://stackoverflow.com/users/5242405/nofi */
-function timeConversion(millisec) {
+/*Display a running clock 
 
-        var seconds = (millisec / 1000).toFixed(1);
+Note - the setTime and pad functions below are from https://stackoverflow.com/a/5517836, 
+  answered by chandu, profile at https://stackoverflow.com/users/527185/chandu */
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
 
-        var minutes = (millisec / (1000 * 60)).toFixed(1);
-
-        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-
-        var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
-
-        if (seconds < 60) {
-            return seconds + " Sec";
-        } else if (minutes < 60) {
-            return minutes + " Min";
-        } else if (hours < 24) {
-            return hours + " Hrs";
-        } else {
-            return days + " Days"
-        }
-    }
-
- function getGameTime () {
-  stopTime = performance.now();
-  gameDuration = stopTime - startTime;
-  var gameTime = timeConversion(gameDuration);
-  console.log(gameTime);
- }
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
 
  function resetCounters() {
      numMoves.textContent = 0;
@@ -78,6 +68,7 @@ function resetScore() {
 
 function handleOpenListMatch() {
     numMatches++;
+    console.log('made it to handleOpenListMatch');
     console.log("matches = " + numMatches);
     for (let i = openList.length-1; i >= 0; i--) {
         openList[i].className = 'card match';
@@ -90,16 +81,14 @@ function handleOpenListMismatch() {
         openList[i].className = 'card';
         openList.pop();
     }
+    console.log("openList.length = " + openList.length);
 }
 
 function runningScore () {
     if (countMoves === 8) {
-        console.log("countMoves = " + countMoves);
         scoreArray[0].classList.add('hide-star');
-        getGameTime();
     } 
     else if (countMoves ===11) {
-        console.log("countMoves = " + countMoves);
         scoreArray[1].classList.add('hide-star');
     }
 }
@@ -111,7 +100,10 @@ function incrementMoves() {
 }
 
 function addToOpenList(openCard) {
+  console.log("made it to addToOpenList");
     openList.push(openCard);
+    console.log("openList.length = " + openList.length);
+    console.log(openCard);
     if (openList.length === 2) {
       incrementMoves();
       if (openList[0].firstElementChild.outerHTML == openList[1].firstElementChild.outerHTML) {
@@ -123,17 +115,20 @@ function addToOpenList(openCard) {
 }
 
 function displaySymbol(event) {
+  if ((priorEvent !== event.target) || (openList.length === 0)) {
     if ((event.target.nodeName == "LI") && (event.target.className !== 'card match')) {
       event.target.className = 'card open show';
+      priorEvent = event.target;
       addToOpenList(event.target);
     }
+  }
 }
 
 function resetGame() {
   resetCounters();
   resetScore();
   resetCards();
-  startTime = performance.now();
+  setInterval(setTime, 1000);
 }
 
  resetGame();
