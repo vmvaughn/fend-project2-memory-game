@@ -11,7 +11,7 @@ let numMatches = 0;
 let totalSeconds = 0;
 let priorEvent = "";
 let intervalId = 0;
-
+let timeoutID = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -77,8 +77,6 @@ function resetScore() {
 
 function handleOpenListMatch() {
     numMatches++;
-    console.log('made it to handleOpenListMatch');
-    console.log("matches = " + numMatches);
     for (let i = openList.length-1; i >= 0; i--) {
         openList[i].className = 'card match';
         openList.pop();
@@ -90,35 +88,30 @@ function handleOpenListMismatch() {
         openList[i].className = 'card';
         openList.pop();
     } 
-    console.log("openList.length = " + openList.length);
 }
 
 function runningScore () {
     if (countMoves === 8) {
         scoreArray[0].classList.add('hide-star');
     } 
-    else if (countMoves ===11) {
+    else if (countMoves === 11) {
         scoreArray[1].classList.add('hide-star');
     }
 }
 
 function incrementMoves() {
   numMoves.textContent = ++countMoves;
-  console.log(numMoves.textContent);
   runningScore();
 }
 
 function addToOpenList(openCard) {
-  console.log("made it to addToOpenList");
     openList.push(openCard);
-    console.log("openList.length = " + openList.length);
-    console.log(openCard);
     if (openList.length === 2) {
       incrementMoves();
       if (openList[0].firstElementChild.outerHTML == openList[1].firstElementChild.outerHTML) {
-         handleOpenListMatch();  
+        handleOpenListMatch();  
       } else {
-        handleOpenListMismatch();
+         timeoutID = setTimeout(handleOpenListMismatch, 1000);
         }
     }
 }
@@ -127,7 +120,6 @@ function displaySymbol(event) {
   if ((priorEvent !== event.target) || (openList.length === 0)) {
     if ((event.target.nodeName == "LI") && (event.target.className !== 'card match')) {
       event.target.className = 'card open show';
-      console.log("displaySymbol: card open show");
       priorEvent = event.target;
       addToOpenList(event.target);
     }
