@@ -109,9 +109,12 @@ function addToOpenList(openCard) {
     if (openList.length === 2) {
       incrementMoves();
       if (openList[0].firstElementChild.outerHTML == openList[1].firstElementChild.outerHTML) {
+        /* add if condition here to call function to handle all matched */
         handleOpenListMatch();  
       } else {
-         timeoutID = setTimeout(handleOpenListMismatch, 1000);
+         openList[0].className = 'card open show mismatch';
+         openList[1].className = "card open show mismatch";
+         timeoutID = setTimeout(handleOpenListMismatch, 500);
         }
     }
 }

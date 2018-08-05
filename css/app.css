@@ -38,7 +38,8 @@ h1 {
  */
 
 .deck {
-    width: 660px;
+    /*width: 660px;*/
+    width: 100%;
     min-height: 680px;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     padding: 32px;
@@ -48,7 +49,9 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 3em;
+    margin: 0 auto;
+    /*margin: 0 0 3em;*/
+
 }
 
 .deck .card {
@@ -79,6 +82,10 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+}
+
+.deck .card.mismatch {
+    background: #f44245;
 }
 
 /*
