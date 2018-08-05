@@ -5,6 +5,7 @@ const restartSymbol = document.querySelector('.restart');
 const scoreArray = Array.from(document.getElementsByClassName('fa-star'));
 const minutesLabel = document.getElementById("minutes");
 const secondsLabel = document.getElementById("seconds");
+const container = document.querySelector('.container');
 const openList = [];
 let countMoves = 0;
 let numMatches = 0;
@@ -32,8 +33,18 @@ function stopClock() {
   clearInterval(intervalId);
 }
 
+function endGameModal() {
+  console.log("made it to endGameModel");
+  const modalAdded = document.createElement('div');
+  const modalText = document.createTextNode('Congratulations! You finished!');
+  modalAdded.appendChild(modalText);
+  document.body.insertBefore(modalAdded, container);
+
+}
+
 function stopGame() {
   stopClock();
+  endGameModal();
 }
 
 /*Display a running clock 
