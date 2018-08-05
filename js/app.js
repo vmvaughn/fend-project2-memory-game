@@ -28,6 +28,14 @@ function shuffle(array) {
     return array;
 }
 
+function stopClock() {
+  clearInterval(intervalId);
+}
+
+function stopGame() {
+  stopClock();
+}
+
 /*Display a running clock 
 
 Note - the setTime and pad functions below are from https://stackoverflow.com/a/5517836, 
@@ -80,6 +88,9 @@ function handleOpenListMatch() {
     for (let i = openList.length-1; i >= 0; i--) {
         openList[i].className = 'card match';
         openList.pop();
+    }
+    if (numMatches === 8) {
+      stopGame();
     }
 }
 
