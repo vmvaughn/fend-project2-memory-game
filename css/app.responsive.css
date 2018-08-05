@@ -1,10 +1,53 @@
-@media screen and (max-width: 685px) {
+@media screen and (max-width: 374px) {
   h1 {
     color: #ff0000;
   }
-  .deck .card {
-  	margin: 10px;
+  .deck {
+    width: 65%;
+    min-height: 550px;
   }
+  .deck .card {
+    width: 50px;
+    height: 50px;
+    margin: 10px 5px;
+  } 
+  .score-panel {
+    width: 280px;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 424px) {
+  h1 {
+    color: #ff0000;
+  }
+  .deck {
+    width: 65%;
+    min-height: 550px;
+  }
+  .deck .card {
+    /*margin: 10px;*/
+    width: 65px;
+    height: 65px;
+    margin: 10px 5px;
+  } 
+  .score-panel {
+    width: 280px;
+  }
+}
+
+@media screen and (min-width: 425px) and (max-width: 685px) {
+  h1 {
+    color: #ff0000;
+  }
+  .deck {
+    width: 65%;
+  }
+  .deck .card {
+  	/*margin: 10px;*/
+    width: 75px;
+    height: 75px;
+    margin: 10px;
+  } 
 }
 
 @media screen and (min-width: 686px) {
