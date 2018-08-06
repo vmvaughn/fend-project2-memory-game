@@ -7,6 +7,7 @@ const minutesLabel = document.getElementById("minutes");
 const secondsLabel = document.getElementById("seconds");
 const container = document.querySelector('.container');
 const openList = [];
+const modal = document.getElementById('overlay');
 let countMoves = 0;
 let numMatches = 0;
 let totalSeconds = 0;
@@ -33,18 +34,19 @@ function stopClock() {
   clearInterval(intervalId);
 }
 
-function endGameModal() {
-  console.log("made it to endGameModel");
-  const modalAdded = document.createElement('div');
-  const modalText = document.createTextNode('Congratulations! You finished!');
-  modalAdded.appendChild(modalText);
-  document.body.insertBefore(modalAdded, container);
+/*Thank you to John Henshaw who provided the idea and code samples to build a modal overlay in his blog post, 
+ https://raventools.com/blog/create-a-modal-dialog-using-css-and-javascript/ */
+function showModal() {
+  modal.style.visibility = 'visible';
+}
 
+function hideModal() {
+  modal.style.visibility = 'hidden';
 }
 
 function stopGame() {
   stopClock();
-  endGameModal();
+  showModal();
 }
 
 /*Display a running clock 
@@ -156,6 +158,7 @@ function resetGame() {
   resetScore();
   resetCards();
   resetClock();
+  handleOpenListMismatch();
 
 }
 
@@ -163,6 +166,7 @@ function resetGame() {
 
  cardDeck.addEventListener('click', displaySymbol);
  restartSymbol.addEventListener('click', resetGame);
+ modal.addEventListener('click', hideModal);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
