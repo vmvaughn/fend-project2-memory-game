@@ -7,7 +7,10 @@ const minutesLabel = document.getElementById("minutes");
 const secondsLabel = document.getElementById("seconds");
 const container = document.querySelector('.container');
 const openList = [];
-const modal = document.getElementById('overlay');
+const modal = document.querySelector('#overlay');
+const modalDisplayArea = document.querySelector('#overlay div');
+const gameMinutes = document.querySelector('.duration-minutes');
+const gameSeconds = document.querySelector('.duration-seconds');
 let countMoves = 0;
 let numMatches = 0;
 let totalSeconds = 0;
@@ -47,6 +50,11 @@ function hideModal() {
 function stopGame() {
   stopClock();
   showModal();
+  console.log(minutesLabel.textContent);
+  console.log(secondsLabel.textContent);
+  console.log(scoreArray[0].hidden);
+  gameMinutes.textContent = minutesLabel.textContent;
+  gameSeconds.textContent = secondsLabel.textContent;
 }
 
 /*Display a running clock 
@@ -102,7 +110,7 @@ function handleOpenListMatch() {
         openList[i].className = 'card match';
         openList.pop();
     }
-    if (numMatches === 8) {
+    if (numMatches === 1) {
       stopGame();
     }
 }
@@ -158,6 +166,7 @@ function resetGame() {
   resetScore();
   resetCards();
   resetClock();
+  hideModal();
   handleOpenListMismatch();
 
 }
@@ -166,7 +175,7 @@ function resetGame() {
 
  cardDeck.addEventListener('click', displaySymbol);
  restartSymbol.addEventListener('click', resetGame);
- modal.addEventListener('click', hideModal);
+ modalDisplayArea.addEventListener('click', resetGame);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
