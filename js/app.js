@@ -1,4 +1,4 @@
-//Get the ul for the deck in order to set 1 event listener instead of 16
+//Global constants and variables
 const cardDeck = document.querySelector('.deck');
 const numMoves = document.querySelector('.moves');
 const restartSymbol = document.querySelector('.restart');
@@ -48,6 +48,7 @@ function hideModal() {
   modal.style.visibility = 'hidden';
 }
 
+/*stop the game clock and move game time and score into modal; show modal */
 function stopGame() {
   stopClock();
   gameMinutes.textContent = minutesLabel.textContent;
@@ -113,7 +114,7 @@ function handleOpenListMatch() {
         openList[i].className = 'card match';
         openList.pop();
     }
-    if (numMatches === 2) {
+    if (numMatches === 8) {
       stopGame();
     }
 }
@@ -179,13 +180,3 @@ function resetGame() {
  cardDeck.addEventListener('click', displaySymbol);
  restartSymbol.addEventListener('click', resetGame);
  modalDisplayArea.addEventListener('click', resetGame);
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
