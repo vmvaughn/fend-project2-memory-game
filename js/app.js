@@ -2,15 +2,16 @@
 const cardDeck = document.querySelector('.deck');
 const numMoves = document.querySelector('.moves');
 const restartSymbol = document.querySelector('.restart');
-const scoreArray = Array.from(document.getElementsByClassName('fa-star'));
-const minutesLabel = document.getElementById("minutes");
-const secondsLabel = document.getElementById("seconds");
+const scoreArray = Array.from(document.getElementsByClassName('star-panel'));
+const minutesLabel = document.getElementById('minutes');
+const secondsLabel = document.getElementById('seconds');
 const container = document.querySelector('.container');
 const openList = [];
 const modal = document.querySelector('#overlay');
 const modalDisplayArea = document.querySelector('#overlay div');
 const gameMinutes = document.querySelector('.duration-minutes');
 const gameSeconds = document.querySelector('.duration-seconds');
+const gameScore = Array.from(document.getElementsByClassName('star-modal'));
 let countMoves = 0;
 let numMatches = 0;
 let totalSeconds = 0;
@@ -49,12 +50,14 @@ function hideModal() {
 
 function stopGame() {
   stopClock();
-  showModal();
-  console.log(minutesLabel.textContent);
-  console.log(secondsLabel.textContent);
-  console.log(scoreArray[0].hidden);
   gameMinutes.textContent = minutesLabel.textContent;
   gameSeconds.textContent = secondsLabel.textContent;
+  for (let i = scoreArray.length-1; i >= 0; i--) {
+    if (scoreArray[i].classList.contains('hide-star')) {
+      gameScore[(gameScore.length-1)-i].classList.add('hide-star');
+    } 
+  }
+  showModal(); 
 }
 
 /*Display a running clock 
@@ -110,7 +113,7 @@ function handleOpenListMatch() {
         openList[i].className = 'card match';
         openList.pop();
     }
-    if (numMatches === 1) {
+    if (numMatches === 2) {
       stopGame();
     }
 }
