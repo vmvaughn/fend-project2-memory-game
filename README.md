@@ -17,11 +17,6 @@ The number of stars are based on the number of moves it took to find all matches
 
 ## Instructions
 
-This repository contains 4 files. 
+Download files to same folder.
 
-index.html
-app.css
-app.responsive.css
-app.js
-
-Download all 4 files into the same folder or directory, open index.html, and have fun!
+Then open index.html...and have fun!
