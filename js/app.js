@@ -127,10 +127,10 @@ function handleOpenListMismatch() {
 }
 
 function runningScore () {
-    if (countMoves === 8) {
+    if (countMoves === 9) {
         scoreArray[0].classList.add('hide-star');
     } 
-    else if (countMoves === 11) {
+    else if (countMoves === 13) {
         scoreArray[1].classList.add('hide-star');
     }
 }
