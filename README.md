@@ -1,20 +1,27 @@
-# Memory Game Project
+# Memory Game 
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [About](#about)
+* [Contributing](#instructions)
+
+## About
+
+The Memory Game is written in javascript and runs entirely in the browser.  All testing was done with a Chrome browser. 
+
+The game starts out with a timer running and 16 cards face down. Click 2 cards at a time to find a match. If the cards match, then these stay turned over. Otherwise these are flipped back to face down. The game proceeds like this until all matches found with all cards face up. 
+
+A modal then pops up congratulating the player for finishing the game and displaying both the time it took with a score from 1 to 3 stars.  
+
+The number of stars are based on the number of moves it took to find all matches. (A move is clicking on 2 cards to find a match.) If all cards are matched with 8 tries, the player receives a perfect score of 3 stars.  If all cards are matched within 12 tries, the player receives 2 stars. 1 star is awarded for moves of 13 or more to find all card matches. 
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This repository contains 4 files. 
 
-To get started, open `js/app.js` and start building out the app's functionality
+index.html
+app.css
+app.responsive.css
+app.js
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Download all 4 files into the same folder or directory, open index.html, and have fun!
